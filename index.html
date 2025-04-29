@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hispano América - Gestión de Laboratorios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+    
+        :root {
+            --primary-color: #004080;
+            --secondary-color: #007bff;
+            --accent-color: #ffcc00;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0; 
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--secondary-color);
+        }
+
+        /* Sección Hero */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,64,128,0.8), rgba(0,64,128,0.9)),
+                        url('hosp.jpeg') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+            text-align: center;
+            padding: 0 5%;
+            margin-top: 70px;
+            position: relative; 
+        }
+
+        .hero-content {
+            max-width: 800px; 
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .draggable-image {
+            max-width: 75px; 
+            opacity: 0.7;
+            position: fixed; 
+            bottom: 20px;
+            right: 20px;
+            cursor: grab; 
+            z-index: 999; 
+            transition: all 0.5s ease-in-out; 
+        }
+
+        .dragging {
+            cursor: grabbing;
+        }
+
+        .welcome-message {
+            position: fixed;
+            bottom: 95px; 
+            right: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            opacity: 0; 
+            transition: opacity 0.3s ease-in-out;
+            z-index: 1000; 
+        }
+
+        .welcome-message.show {
+            opacity: 1;
+        }
+
+        
+        footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 5%;
+            text-align: center;
+        }
+
+        
+        .mobile-nav-toggle {
+            display: none; 
+            background: none;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; 
+                flex-direction: column;
+                position: absolute;
+                top: 70px; 
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.95);
+                text-align: center;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            }
+
+            .nav-links.open {
+                display: flex; 
+            }
+
+            .nav-links a {
+                padding: 1rem;
+                display: block;
+            }
+
+            .mobile-nav-toggle {
+                display: block; 
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">Hispano América</a>
+        <button class="mobile-nav-toggle" aria-controls="primary-navigation" aria-expanded="false">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <div class="nav-links" id="primary-navigation">
+            <a href="#" class="active">Inicio</a>
+            <a href="pagina2.html">Sistema</a>
+            <a href="informacion.html">información</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Gestión Inteligente de Laboratorios</h1>
+            <p>Sistema integral de control de inventarios para laboratorios de Informática</p>
+        </div>
+    </section>
+
+    <div id="welcomeMessage" class="welcome-message">Bienvenido!</div>
+    <img id="draggableRobot" src="emo-robot-happy-discord.gif" alt="Mini Robot" class="draggable-image">
+
+    <footer>
+        <p>&copy; 2025 Hispano América - Todos los derechos reservados</p>
+        <p>Sistema de Gestión de Laboratorios - Versión 2.0</p>
+    </footer>
+
+    <script>
+        const draggableRobot = document.getElementById('draggableRobot');
+        const contactoLink = document.querySelector('.nav-links a[href="#contacto"]');
+        const welcomeMessage = document.getElementById('welcomeMessage');
+        let isDragging = false;
+        let offsetX, offsetY;
+        let clickCount = 0;
+        let tripleClickTimeout;
+
+        draggableRobot.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            draggableRobot.classList.add('dragging');
+            offsetX = e.clientX - draggableRobot.getBoundingClientRect().left;
+            offsetY = e.clientY - draggableRobot.getBoundingClientRect().top;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            draggableRobot.style.left = e.clientX - offsetX + 'px';
+            draggableRobot.style.top = e.clientY - offsetY + 'px';
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+            draggableRobot.classList.remove('dragging');
+        });
+
+        draggableRobot.addEventListener('click', () => {
+            clickCount++;
+
+            if (clickCount === 3) {
+                if (contactoLink) {
+                    const targetRect = contactoLink.getBoundingClientRect();
+                    const robotRect = draggableRobot.getBoundingClientRect();
+
+                    const targetCenterX = targetRect.left + targetRect.width / 2;
+                    const targetCenterY = targetRect.top + targetRect.height / 2;
+                    const robotCenterX = robotRect.left + robotRect.width / 2;
+                    const robotCenterY = robotRect.top + robotRect.height / 2;
+
+                    const deltaX = targetCenterX - robotCenterX;
+                    const deltaY = targetCenterY - robotCenterY;
+
+                    
+                    draggableRobot.style.left = parseFloat(draggableRobot.style.left || robotRect.left + 'px') + deltaX + 'px';
+                    draggableRobot.style.top = parseFloat(draggableRobot.style.top || robotRect.top + 'px') + deltaY + 'px';
+
+                   
+                    welcomeMessage.classList.add('show');
+
+                    
+                    setTimeout(() => {
+                        contactoLink.click();
+                        clickCount = 0; 
+                        welcomeMessage.classList.remove('show'); 
+                    }, 600); 
+                } else {
+                    alert('El enlace de contacto no se encontró.');
+                    clickCount = 0;
+                }
+            } else if (clickCount > 3) {
+                clickCount = 0; 
+            } else {
+                
+                clearTimeout(tripleClickTimeout);
+                tripleClickTimeout = setTimeout(() => {
+                    clickCount = 0;
+                }, 500); 
+            }
+        });
+    </script>
+</body>
+</html>

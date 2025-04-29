@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Equipos - Laboratorio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tu_archivo_de_estilos.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro de Equipos de Laboratorio</h1>
+        <form id="registroEquipos">
+            <h2>Ingreso</h2>
+            <div class="form-group">
+                <label for="laboratorio">Laboratorio:</label>
+                <select id="laboratorio" name="laboratorio" required>
+                    <option value="">Seleccionar Laboratorio</option>
+                    <option value="laboratorio1">Laboratorio de Informática 1</option>
+                    <option value="laboratorio2">Laboratorio de Informática 2</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="docente">Docente:</label>
+                <input type="text" id="docente" name="docente">
+            </div>
+
+            <div class="form-group">
+                <label for="horario">Horario:</label>
+                <input type="text" id="horario" name="horario">
+            </div>
+
+            <div class="form-group">
+                <label for="cedula_ingreso">Cédula (Ingreso):</label>
+                <input type="number" id="cedula_ingreso" name="cedula_ingreso">
+            </div>
+
+            <div class="form-group">
+                <label for="total_ingresado">Total Ingresado:</label>
+                <input type="text" id="total_ingresado" name="total_ingresado">
+            </div>
+
+            <h2>Inventario</h2>
+            <div class="form-group">
+                <label for="cedula_inventario">Cédula (Inventario):</label>
+                <input type="text" id="cedula_inventario" name="cedula_inventario" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo_equipo">Código del Equipo:</label>
+                <input type="text" id="codigo_equipo" name="codigo_equipo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="marca_modelo">Marca y Modelo:</label>
+                <input type="text" id="marca_modelo" name="marca_modelo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoría:</label>
+                <input type="text" id="categoria" name="categoria">
+            </div>
+
+            <div class="form-group">
+                <label for="fecha_ingreso">Fecha de Ingreso:</label>
+                <input type="datetime-local" id="fecha_ingreso" name="fecha_ingreso">
+            </div>
+
+            <div class="form-group">
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado" required>
+                    <option value="">Seleccionar Estado</option>
+                    <option value="funcional">Funcional</option>
+                    <option value="no_funcional">No Funcional</option>
+                    <option value="en_reparacion">En Reparación</option>
+                    <option value="obsoleto">Obsoleto</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="observaciones">Observaciones:</label>
+                <textarea id="observaciones" name="observaciones" rows="3"></textarea>
+            </div>
+
+            <button type="submit">Registrar Equipo</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registroEquipos').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const data = {};
+            formData.forEach((value, key) => {
+                data[key] = value;
+            });
+            console.log(data);
+            alert('Equipo registrado (solo para demostración)');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
